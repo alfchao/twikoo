@@ -1,7 +1,7 @@
 <template>
-  <div class="tk-submit" ref="tk-submit">
+  <div class="tk-submit tk-fade-in" ref="tk-submit">
     <div class="tk-row">
-      <tk-avatar :config="config" :mail="mail" />
+      <tk-avatar :config="config" :mail="mail" :nick="nick" />
       <div class="tk-col">
         <tk-meta-input :nick="nick" :mail="mail" :link="link" @update="onMetaUpdate" :config="config" />
         <el-input class="tk-input"
@@ -202,7 +202,7 @@ export default {
           renderLinks(this.$refs['comment-preview'])
           renderMath(this.$refs['comment-preview'], this.$twikoo.katex)
           if (this.config.HIGHLIGHT === 'true') {
-            renderCode(this.$refs['comment-preview'], this.config.HIGHLIGHT_THEME)
+            renderCode(this.$refs['comment-preview'], this.config.HIGHLIGHT_THEME, this.config.HIGHLIGHT_PLUGIN)
           }
         })
       }
@@ -374,7 +374,7 @@ export default {
   mounted () {
     if (this.pid) {
       this.$refs['tk-submit'].scrollIntoView({
-        behavier: 'smooth',
+        behavior: 'instant',
         block: 'center'
       })
     }
@@ -476,5 +476,17 @@ export default {
   border: 1px solid rgba(128,128,128,0.31);
   border-radius: 4px;
   word-break: break-word;
+}
+.tk-fade-in {
+  animation: tkFadeIn .3s;
+}
+@keyframes tkFadeIn {
+  0% {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
 }
 </style>
